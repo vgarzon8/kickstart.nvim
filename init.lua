@@ -645,6 +645,64 @@ require('lazy').setup({
             },
           },
         },
+        -- Source: https://github.com/hendrikmi/dotfiles/blob/main/nvim/lua/plugins/lsp.lua
+        pylsp = {
+          settings = {
+            pylsp = {
+              plugins = {
+                pyflakes = { enabled = false },
+                pycodestyle = { enabled = false },
+                autopep8 = { enabled = false },
+                yapf = { enabled = false },
+                mccabe = { enabled = false },
+                pylsp_mypy = { enabled = true },
+                pylsp_black = { enabled = false },
+                pylsp_isort = { enabled = false },
+              },
+            },
+          },
+        },
+        -- Source: https://github.com/hendrikmi/dotfiles/blob/main/nvim/lua/plugins/lsp.lua
+        ruff = {
+          -- Notes on code actions: https://github.com/astral-sh/ruff-lsp/issues/119#issuecomment-1595628355
+          -- Get isort like behavior: https://github.com/astral-sh/ruff/issues/8926#issuecomment-1834048218
+          commands = {
+            RuffAutofix = {
+              function()
+                vim.lsp.buf.execute_command {
+                  command = 'ruff.applyAutofix',
+                  arguments = {
+                    { uri = vim.uri_from_bufnr(0) },
+                  },
+                }
+              end,
+              description = 'Ruff: Fix all auto-fixable problems',
+            },
+            RuffOrganizeImports = {
+              function()
+                vim.lsp.buf.execute_command {
+                  command = 'ruff.applyOrganizeImports',
+                  arguments = {
+                    { uri = vim.uri_from_bufnr(0) },
+                  },
+                }
+              end,
+              description = 'Ruff: Format imports',
+            },
+          },
+        },
+        -- Source: https://github.com/hendrikmi/dotfiles/blob/main/nvim/lua/plugins/lsp.lua
+        rust_analyzer = {
+          ['rust-analyzer'] = {
+            cargo = {
+              features = 'all',
+            },
+            checkOnSave = true,
+            check = {
+              command = 'clippy',
+            },
+          },
+        },
       }
 
       -- Ensure the servers and tools above are installed
