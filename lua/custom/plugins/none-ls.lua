@@ -8,7 +8,7 @@ return {
   },
   config = function()
     local null_ls = require 'null-ls'
-    local formatting = null_ls.builtins.formatting -- to setup formatters
+    local formatting = null_ls.builtins.formatting   -- to setup formatters
     local diagnostics = null_ls.builtins.diagnostics -- to setup linters
 
     -- list of formatters & linters for mason to install
@@ -19,7 +19,7 @@ return {
         'stylua',
         'shfmt',
         'ruff',
-        -- 'mypy',
+        'mypy',
       },
       -- auto-install configured formatters & linters (with null-ls)
       automatic_installation = true,
@@ -32,7 +32,7 @@ return {
       formatting.shfmt.with { args = { '-i', '4' } },
       require('none-ls.formatting.ruff').with { extra_args = { '--extend-select', 'I' } },
       require 'none-ls.formatting.ruff_format',
-
+      diagnostics.mypy,
     }
 
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
